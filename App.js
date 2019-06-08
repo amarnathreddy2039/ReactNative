@@ -7,7 +7,9 @@ import {createStackNavigator,createAppContainer} from 'react-navigation';
 // imports from src
 import Splashscreen from './src/components/SplashScreen';
 import Homescreen from './src/components/HomeScreen';
-import ProductDetails from './src/components/ProductDetails'
+import ProductDetails from './src/components/ProductDetails';
+import Addtocart from './src/components/Addtocart';
+import AddAddess from './src/components/AddAddess';
 
 // const Badge = ({count})=>(
 //   <View style ={styles.cirlce}>
@@ -25,7 +27,7 @@ const HomeNavOptions = ({ navigation }) => {
     headerLeft: <Image source={require('./src/resource/images/left_menu_icon.png')}
     style={{ width: 32, height: 32,position: 'absolute', resizeMode: 'contain', alignSelf: 'center' }}/>,
 
-    headerRight: <TouchableOpacity  onPress={() => alert('This is a button!')} >
+    headerRight: <TouchableOpacity  onPress={() =>navigation.navigate('AddtocartScreen')} >
     <Image source={require('./src/resource/images/cart_icon.png')}
     style={{ width: 32, height: 32, resizeMode: 'contain', alignSelf: 'center', marginRight:20}}/>
     <Text style={{ position: 'absolute',
@@ -71,7 +73,8 @@ const AppNavigator = createStackNavigator({
   splashScreen: { screen: Splashscreen},
   homescreen: { screen: Homescreen,navigationOptions : HomeNavOptions},   
   ProductDetailsScreen: { screen: ProductDetails, navigationOptions:DetailNavOptions },
-
+  AddtocartScreen:{ screen: Addtocart, navigationOptions:DetailNavOptions },
+  AddAddessScreen:{screen: AddAddess, navigationOptions:DetailNavOptions },
     
 });
 

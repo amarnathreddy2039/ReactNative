@@ -120,6 +120,7 @@ class HomeScreen extends Component {
 		alert('recieved --> '+obj);
 		console.log('recieved --> '+obj);
 
+		
 
 	}
 	async componentDidMount() {
