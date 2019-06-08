@@ -10,6 +10,12 @@ export class AddAddess extends Component {
 		};
 	}
 
+	static navigationOptions  = ({ navigation }) => {
+		return {
+		title: 'Customer Details',
+	}
+	  };
+
 	handleEmail = (text) => {
 		this.setState({ email: text });
 	};

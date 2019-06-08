@@ -25,7 +25,7 @@ class ProductDetails extends Component {
   }
   static navigationOptions = ({ navigation }) => {
     return {
-      title: "ZipJet"
+      title: "Product Details"
     };
   };
 
@@ -34,7 +34,7 @@ class ProductDetails extends Component {
     const propsData = this.props.navigation.getParam("ProductDetailsScreen");
     console.log("Product data : " + JSON.stringify(propsData));
   }
-  onChange(number, type) {
+  _onChange(number, type) {
     console.log(number, type); // 1, + or -
     this.setState({ quantity: number });
     console.log("count : " + this.state.quantity);
@@ -44,20 +44,20 @@ class ProductDetails extends Component {
     //const cuurentObject = this;
     this.state.dataObj.push({
       id: this.props.navigation.state.params.id,
-      title: this.props.navigation.state.params.title,
+      name: this.props.navigation.state.params.name,
       detials: this.props.navigation.state.params.detials,
-      imagepath: this.props.navigation.state.params.imagepath,
-      originalprice: this.props.navigation.state.params.originalprice,
-      offerprice: this.props.navigation.state.params.offerprice,
+      product_image: this.props.navigation.state.params.product_image,
+      product_price: this.state.quantity*this.props.navigation.state.params.product_price,
+      offer_price: this.props.navigation.state.params.offer_price,
       quantity: this.state.quantity
     });
     const temp = {
       id: this.props.navigation.state.params.id,
-      title: this.props.navigation.state.params.title,
+      name: this.props.navigation.state.params.name,
       detials: this.props.navigation.state.params.detials,
-      imagepath: this.props.navigation.state.params.imagepath,
-      originalprice: this.props.navigation.state.params.originalprice,
-      offerprice: this.props.navigation.state.params.offerprice,
+      product_image: this.props.navigation.state.params.product_image,
+      product_price: this.state.quantity*this.props.navigation.state.params.product_price,
+      offer_price: this.props.navigation.state.params.offer_price,
       quantity: this.state.quantity
     };
 
@@ -89,68 +89,6 @@ class ProductDetails extends Component {
     }
   }
 
-  // async _addtocartButonClick() {
-  //   //const cuurentObject = this;
-  //   this.state.dataObj.push({
-  //     id: this.props.navigation.state.params.id,
-  //     title: this.props.navigation.state.params.title,
-  //     detials: this.props.navigation.state.params.detials,
-  //     imagepath: this.props.navigation.state.params.imagepath,
-  //     originalprice: this.props.navigation.state.params.originalprice,
-  //     offerprice: this.props.navigation.state.params.offerprice,
-  //     quantity: this.state.quantity
-  //   });
-
-  //   //	console.log('setData-->'+JSON.stringify(this.state.dataObj));
-
-  //   try {
-  //     const myArray = await AsyncStorage.getItem("someObj");
-  //     if (myArray !== null) {
-
-  //       // We have data!!
-  //       // console.log('local_storage --> '+myArray);
-
-  //       let dummyArray = JSON.parse(JSON.stringify(myArray));
-  //       console.log("local_storage --> " , dummyArray);
-
-  //       this.state.dataObj.map(data => {
-  // 	  this.state.productArray.push(data);
-  // 	 // this.setState({ productArray: [this.state.productArray, data] })
-  //       });
-  //       console.log("productArray --> " , this.state.productArray );
-
-  // 	console.log("productArray2 --> " ,dummyArray.push(this.state.productArray));
-  //       //storing data in AsyncStorage
-  //       await AsyncStorage.setItem(
-  //         "someObj",
-  //         JSON.stringify(this.state.productArray)
-  // 	).then(this.props.navigation.navigate("homescreen"));
-
-  //     } else {
-  //       //storing data in AsyncStorage
-  //       await AsyncStorage.setItem(
-  //         "someObj",
-  //         JSON.stringify(this.state.productArray)
-  //       ).then(this.props.navigation.navigate("homescreen"));
-  //     }
-  //   } catch (error) {
-  //     // Error retrieving data
-  //   }
-
-  //   // if(obj===null){
-
-  //   // 	//storing data in AsyncStorage
-  //   // await AsyncStorage.setItem("someObj", JSON.stringify(this.state.dataObj))
-  //   // .then(this.props.navigation.navigate('homescreen'));
-
-  //   // }else{
-  //   // 	//storing data in AsyncStorage
-  //   // await AsyncStorage.setItem("someObj", JSON.stringify(this.state.dataObj))
-  //   // .then(this.props.navigation.navigate('homescreen'));
-
-  //   // }
-  // }
-
   render() {
     //for getting data from Home screen
 
@@ -168,22 +106,22 @@ class ProductDetails extends Component {
         >
           <Image
             style={styles.icon}
-            source={{ uri: this.props.navigation.state.params.imagepath }}
+            source={{ uri: this.props.navigation.state.params.product_image }}
           />
           <Text style={styles.cardView_title}>
-            {this.props.navigation.state.params.title}
+            {this.props.navigation.state.params.name}
           </Text>
 
           <Text style={styles.cardView_details}>
             {this.props.navigation.state.params.detials}
           </Text>
           <Text style={styles.cardView_details}>
-            Price : {this.props.navigation.state.params.originalprice}
+            Price : {this.props.navigation.state.params.product_price}
           </Text>
           <Counter
             style={styles.cardView_details}
             start={1}
-            onChange={this.onChange.bind(this)}
+            onChange={this._onChange.bind(this)}
           />
           <Button
             style={styles.cardView_button}

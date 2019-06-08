@@ -33,42 +33,42 @@ class HomeScreen extends Component {
 			catalogList: [
 				{
 					id: 1,
-					title: 'Lorem, ipsum.',
+					name: 'Lorem, ipsum.',
 					detials: 'Lorem ipsum dolor sit amet consectetur.',
-					imagepath:
+					product_image:
 						'http://res.cloudinary.com/zipjet/image/upload/q_auto:good/v1461140826/Shirt_Hanger_qpq0us.jpg',
-					originalprice: 'Â£18.00',
-					offerprice: 'Â£16.00',
+					product_price: '18.00',
+					offer_price:'17.00',
 					isSelected: false
 				},
 				{
 					id: 2,
-					title: 'Lorem, ipsum.',
+					name: 'Lorem, ipsum.',
 					detials: 'Lorem ipsum dolor sit amet consectetur.',
-					imagepath:
+					product_image:
 						'http://res.cloudinary.com/zipjet/image/upload/q_auto:good/v1461314811/ProductBundle_2Suits_xio2p2.jpg',
-					originalprice: 'Â£18.00',
-					offerprice: 'Â£16.00',
+					product_price: '20.00',
+					offer_price:'18.00',
 					isSelected: false
 				},
 				{
 					id: 3,
-					title: 'Lorem, ipsum.',
+					name: 'Lorem, ipsum.',
 					detials: 'Lorem ipsum dolor sit amet consectetur.',
-					imagepath:
+					product_image:
 						'http://res.cloudinary.com/zipjet/image/upload/q_auto:good/v1518689964/Blouse_t1pt7h_qeoe8r.jpg',
-					originalprice: 'Â£20.00',
-					offerprice: 'Â£18.00',
+					product_price: '100.00',
+					offer_price:'80.00',
 					isSelected: false
 				},
 				{
 					id: 4,
-					title: 'Lorem, ipsum.',
+					name: 'Lorem, ipsum.',
 					detials: 'Lorem ipsum dolor sit amet consectetur.',
-					imagepath:
+					product_image:
 						'http://res.cloudinary.com/zipjet/image/upload/q_auto:good/v1461140827/Trousers_nqu1cs.jpg',
-					originalprice: 'Â£22.00',
-					offerprice: 'Â£18.00',
+					product_price: '200.00',
+					offer_price:'150.00',
 					isSelected: false
 				}
 			]
@@ -77,26 +77,12 @@ class HomeScreen extends Component {
 
 	static navigationOptions  = ({ navigation }) => {
 		return {
-		title: 'ZipJet',
-		headerRight: <TouchableOpacity  onPress={() => alert('This is a button 2 !')} >
-		<Image source={require('../resource/images/cart_icon.png')}
-		style={{ width: 32, height: 32, resizeMode: 'contain', alignSelf: 'center', marginRight:20}}/>
-		<Text style={{ position: 'absolute',
-								left: 0,
-								right: 0,
-								top: -7,
-								color:'red',
-								textAlign:'right',
-								marginRight:20,
-								bottom: 0
-	 }}>90</Text>   
-		</TouchableOpacity >,
-
+		title: 'Home',
 	}
 	  };
 
 	  
-	// imagepath: require('../resource/images/zipjet_logo.png'),
+	// product_image: require('../resource/images/zipjet_logo.png'),
 	componentWillMount() {
 		//update displaying values
 		this.listener = this.props.navigation.addListener("didFocus", this.getData);
@@ -117,8 +103,8 @@ class HomeScreen extends Component {
 	async getData(){
 		
 		let obj = await AsyncStorage.getItem("someObj");			 
-		alert('recieved --> '+obj);
-		console.log('recieved --> '+obj);
+		//alert('recieved --> '+obj);
+		console.log('local-storage --> '+obj);
 
 		
 
@@ -128,15 +114,15 @@ class HomeScreen extends Component {
 
 	}
 	_OndetialsClick(item) {
-		console.log('index : ' + item.title);
+		console.log('index : ' + item.name);
 		//	this.props.navigation.navigate('ProductDetailsScreen',{"item":{item}}) //total obj
 		this.props.navigation.navigate('ProductDetailsScreen', {
 			id: item.id,
-			title: item.title,
+			name: item.name,
 			detials: item.detials,
-			imagepath: item.imagepath,
-			originalprice: item.originalprice,
-			offerprice: item.offerprice
+			product_image: item.product_image,
+			offer_price:item.offer_price,
+			product_price: item.product_price,
 		});
 	}
 
@@ -170,10 +156,10 @@ class HomeScreen extends Component {
 												backgroundColor: '#fafafa'
 											}}
 										>
-											<Image style={styles.icon} source={{ uri: item.imagepath }} />
-											<Text style={styles.cardView_title}>{item.title} </Text>
+											<Image style={styles.icon} source={{ uri: item.product_image }} />
+											<Text style={styles.cardView_name}>{item.name} </Text>
 											<Text style={styles.cardView_details}>{item.detials} </Text>
-											<Text style={styles.cardView_details}>Price : {item.originalprice} </Text>
+											<Text style={styles.cardView_details}>Price : {item.product_price} </Text>
 											<Button
 												style={styles.cardView_button}
 												title="Details"
