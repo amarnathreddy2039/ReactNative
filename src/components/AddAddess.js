@@ -1,47 +1,90 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet,Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert,AsyncStorage } from 'react-native';
 
 export class AddAddess extends Component {
 	constructor(props) {
 		super(props);
 		state = {
-			email: '',
-			password: ''
+			checkoutcart: {
+				products: [],
+				customer:{name: '',
+				mobileno: '',
+				address: '',
+				totalamount:'',}
+			},
+			name: '',
+				mobileno: '',
+				address: '',
+				totalamount:'',
 		};
 	}
 
-	static navigationOptions  = ({ navigation }) => {
-		return {
-		title: 'Customer Details',
+	componentDidMount() {
+		var cartArray = [];
+		cartArray = this.props.navigation.state.params.cartArray;
+
+		var totalamount=this.props.navigation.state.params.totalamount;
+		console.log('products-->',cartArray);
+		console.log('totalamount-->',totalamount);
+
+			// this.setState({checkoutcart:this.state.checkoutcart.concat({
+		// 	products:this.props.navigation.state.params.cartArray,
+		// 	customer:{name: 'Amarnath',
+		// 	mobileno: '1234569870',
+		// 	address: 'valuelabs',
+		// 	totalamount:this.props.navigation.state.params.totalamount}
+		// })})
+		// console.log('final array-->',this.state.checkoutcart);
+
 	}
-	  };
-
-	handleEmail = (text) => {
-		this.setState({ email: text });
+	handleName = (text) => {
+		console.log('name-->',text);
+		//this.setState({name: text });
+		//console.log('name-->',this.state.name);
 	};
-	handlePassword = (text) => {
-		this.setState({ password: text });
+	handleMobileNo = (text) => {
+		console.log('mobileno-->',text);
+		//this.setState({ mobileno:text});
+		//console.log('mobileno-->',this.state.mobileno);
 	};
-	login = (email, pass) => {
-		alert('email: ' + email + ' password: ' + pass);
+	handleAddress = (text) => {
+		console.log('address-->',text);
+	//	this.setState({ address: text });
+		//console.log('address-->',this.state.address);
 	};
-    
-    clearLocalStoragedata(){
 
-    }
-   async _OnPlaceOrderClick() {
-        
-             
-        Alert.alert(
-            'Thank you',
-            'Your Order was Successfully Completed',
-            [
-             
-              {text: 'OK', onPress: () =>this.props.navigation.navigate("homescreen")},
-            ],
-            {cancelable: false},
-          );
+	async removeItemValue() {
+		console.log('delete item-->',item);
+		  try {
+			await AsyncStorage.removeItem('someObj');
+		  //  return true;
+		  }
+		  catch(exception) {
+			//return false;
+		  }
+		}
 
+		async navHomeScreen(){
+			try {
+				await AsyncStorage.removeItem('someObj');
+
+				this.props.navigation.navigate('homescreen');
+			  //  return true;
+			  }
+			  catch(exception) {
+				//return false;
+			  }
+			
+		}
+	 
+	 _OnPlaceOrderClick() {
+		Alert.alert(
+			'Thank you',
+			'Your Order was Successfully Completed',
+			[ { text: 'OK', onPress: () => this.navHomeScreen()} ],
+			{ cancelable: false }
+		);
+	
 	}
 
 	render() {
@@ -55,7 +98,7 @@ export class AddAddess extends Component {
 						placeholder="Customer Name"
 						placeholderTextColor="#CDCDCD"
 						autoCapitalize="none"
-						onChangeText={this.handleEmail}
+						onChangeText={this.handleName}
 					/>
 					<TextInput
 						style={styles.input}
@@ -63,7 +106,7 @@ export class AddAddess extends Component {
 						placeholder="Mobile Number"
 						placeholderTextColor="#CDCDCD"
 						autoCapitalize="none"
-						onChangeText={this.handlePassword}
+						onChangeText={this.handleMobileNo}
 					/>
 					<TextInput
 						style={[ styles.input, { height: 100 } ]}
@@ -71,25 +114,23 @@ export class AddAddess extends Component {
 						placeholder="Address"
 						placeholderTextColor="#CDCDCD"
 						autoCapitalize="none"
-						onChangeText={this.handlePassword}
+						onChangeText={this.handleAddress}
 					/>
 				</View>
 
-                <TouchableOpacity						
-                style={[styles.buttonColor,{backgroundColor: null}]}
+				<TouchableOpacity style={[ styles.buttonColor, { backgroundColor: null } ]}>
+					<Text
+						style={{
+							flex: 1,
+							color: 'black',
+							textAlign: 'right',
+							fontSize: 15,
+							justifyContent: 'flex-end'
+						}}
 					>
-						<Text
-							style={{
-								flex: 1,
-								color: 'black',
-								textAlign: 'right',
-								fontSize: 15,
-								justifyContent: 'flex-end'
-							}}
-						>
-							TOTAL AMOUNT: 0
-						</Text>
-					</TouchableOpacity>
+						TOTAL AMOUNT:{this.props.navigation.state.params.totalamount}
+					</Text>
+				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.buttonColor} onPress={() => this._OnPlaceOrderClick()}>
 					<Text

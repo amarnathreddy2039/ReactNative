@@ -47,7 +47,8 @@ class ProductDetails extends Component {
       name: this.props.navigation.state.params.name,
       detials: this.props.navigation.state.params.detials,
       product_image: this.props.navigation.state.params.product_image,
-      product_price: this.state.quantity*this.props.navigation.state.params.product_price,
+      product_price: this.props.navigation.state.params.product_price,
+      cartitem_price:this.state.quantity*this.props.navigation.state.params.product_price,
       offer_price: this.props.navigation.state.params.offer_price,
       quantity: this.state.quantity
     });
@@ -56,7 +57,8 @@ class ProductDetails extends Component {
       name: this.props.navigation.state.params.name,
       detials: this.props.navigation.state.params.detials,
       product_image: this.props.navigation.state.params.product_image,
-      product_price: this.state.quantity*this.props.navigation.state.params.product_price,
+      product_price: this.props.navigation.state.params.product_price,
+      cartitem_price:this.state.quantity*this.props.navigation.state.params.product_price,
       offer_price: this.props.navigation.state.params.offer_price,
       quantity: this.state.quantity
     };
