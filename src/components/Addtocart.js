@@ -14,27 +14,8 @@ import {
 import Counter from "react-native-counters";
 import { SafeAreaView, NavigationActions } from "react-navigation";
 import Feather from "react-native-vector-icons/Feather";
-import { thisExpression } from "@babel/types";
+import RightButton from './rightbutton';
 
-const minusIcon = (isPlusDisabled, touchableDisabledColor, touchableColor) => {
-  return (
-    <Feather
-      name="minus"
-      size={20}
-      color={isPlusDisabled ? touchableDisabledColor : touchableColor}
-    />
-  );
-};
-
-const plusIcon = (isPlusDisabled, touchableDisabledColor, touchableColor) => {
-  return (
-    <Feather
-      name="plus"
-      size={20}
-      color={isPlusDisabled ? touchableDisabledColor : touchableColor}
-    />
-  );
-};
 
 export class Addtocart extends Component {
   constructor(props) {
@@ -48,11 +29,17 @@ export class Addtocart extends Component {
     this._onChange = this._onChange.bind(this);
   }
 
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: "Cart Details"
-    };
-  };
+  static navigationOptions = ({navigation,screenProps}) =>{
+		console.log('navigationOptions');
+		return({
+		 // headerStyle:{backgroundColor:screenProps?screenProps.themeColor:'#00ff00'},
+		 title:'Add to Cart',
+		  headerRight:<RightButton title='0' method={()=>{navigation.navigate('AddtocartScreen')}} />,
+		 
+	  })
+	 
+	}
+  
 
   componentWillMount() {
     //console.log("cart-->componentWillMount");
@@ -129,7 +116,6 @@ export class Addtocart extends Component {
       await AsyncStorage.setItem("someObj", JSON.stringify(newArray));
 
      // calcTotalamount();
-     
       let tempTotal = 0;
     this.state.cartArray.map(data => {
       tempTotal = tempTotal + parseInt(data.cartitem_price);

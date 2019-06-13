@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Alert,AsyncStorage } from 'react-native';
+import { View, Text,Image, TouchableOpacity, TextInput, StyleSheet, Alert,AsyncStorage } from 'react-native';
+import RightButton from './rightbutton';
+
 
 export class AddAddess extends Component {
 	constructor(props) {
@@ -52,6 +54,18 @@ export class AddAddess extends Component {
 	//	this.setState({ address: text });
 		//console.log('address-->',this.state.address);
 	};
+
+	static navigationOptions = ({navigation,screenProps}) =>{
+		console.log('navigationOptions');
+		return({
+		 // headerStyle:{backgroundColor:screenProps?screenProps.themeColor:'#00ff00'},
+		 title:'Address',
+		  headerRight:<RightButton title='0' method={()=>{navigation.navigate('AddtocartScreen')}} />,
+		 
+	  })
+	 
+	}
+	
 
 	async removeItemValue() {
 		console.log('delete item-->',item);

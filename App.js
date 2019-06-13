@@ -69,12 +69,13 @@ const HomeNavOptions = ({ navigation }) => {
     }
       
 //adding screens to stack
+// homescreen: { screen: Homescreen,navigationOptions : HomeNavOptions}, 
 const AppNavigator = createStackNavigator({
   splashScreen: { screen: Splashscreen},
-  homescreen: { screen: Homescreen,navigationOptions : HomeNavOptions},   
-  ProductDetailsScreen: { screen: ProductDetails, navigationOptions:DetailNavOptions },
-  AddtocartScreen:{ screen: Addtocart, navigationOptions:DetailNavOptions },
-  AddAddessScreen:{screen: AddAddess, navigationOptions:DetailNavOptions },
+  homescreen: { screen: Homescreen},   
+  ProductDetailsScreen: { screen: ProductDetails },
+  AddtocartScreen:{ screen: Addtocart },
+  AddAddessScreen:{screen: AddAddess},
     
 });
 

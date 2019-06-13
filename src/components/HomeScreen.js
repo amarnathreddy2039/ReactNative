@@ -16,6 +16,7 @@ import {
 	
 } from 'react-native';
 import { SafeAreaView } from 'react-navigation';
+import RightButton from './rightbutton';
 
 
 class HomeScreen extends Component {
@@ -75,13 +76,21 @@ class HomeScreen extends Component {
 		};
 	}
 
-	static navigationOptions  = ({ navigation }) => {
-		return {
-		title: 'Home',
-	}
-	  };
+	
+	static navigationOptions = ({navigation,screenProps}) =>{
+		console.log('navigationOptions');
+		return({
+		 // headerStyle:{backgroundColor:screenProps?screenProps.themeColor:'#00ff00'},
+		 title: 'HOME',
+		  headerLeft: <Image source={require('../resource/images/left_menu_icon.png')}
+		  style={{ width: 32, height: 32, resizeMode: 'contain', alignSelf: 'center' }}/>,
 
-	  
+		  headerRight:<RightButton title='0' method={()=>{navigation.navigate('AddtocartScreen')}} />,
+		 
+	  })
+	 
+	}
+
 	// product_image: require('../resource/images/zipjet_logo.png'),
 	componentWillMount() {
 		//update displaying values
